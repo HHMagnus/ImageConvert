@@ -3,14 +3,6 @@
 version = 4
 
 [[package]]
-name = "ImageConvert"
-version = "0.1.0"
-dependencies = [
- "image",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "adler2"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -378,6 +370,14 @@ checksum = "525e9ff3e1a4be2fbea1fdf0e98686a6d98b4d8f937e1bf7402245af1909e8c3"
 dependencies = [
  "byteorder-lite",
  "quick-error",
+]
+
+[[package]]
+name = "image_convert"
+version = "0.1.0"
+dependencies = [
+ "image",
+ "wasm-bindgen",
 ]
 
 [[package]]
