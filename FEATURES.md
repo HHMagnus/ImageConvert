@@ -5,8 +5,6 @@ Features:
 
 TODO:
 - Deploy to github pages
-- test images types for example gif
-- Make it possible to paste in from a snipping tool
 - Check documentation for more advanced look at lossy compression
 - Make a favorite section for the most common conversion
 - Custom domain
