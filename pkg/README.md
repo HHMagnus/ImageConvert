@@ -1,6 +1,6 @@
 # Offline Image Converter
 
-The **Offline Image Converter** allows you to convert between image types directly in your browser without uploading them anywhere.  
+The **Offline Image Converter** allows you to convert between image formats directly in your browser without uploading them anywhere.  
 It uses the Rust crate [`image`](https://crates.io/crates/image), compiled to WebAssembly.  
 
 Try it here: [https://imageconvert.mhh.dev/](https://imageconvert.mhh.dev/)
