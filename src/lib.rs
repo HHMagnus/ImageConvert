@@ -8,9 +8,9 @@ fn map_image_err(err: ImageError) -> String {
     format!("Image processing error: {}", err)
 }
 
-fn convert(image_data: Vec<u8>, output: ImageFormat) -> Result<Vec<u8>, String> {
+fn convert(image_data: Vec<u8>, input: ImageFormat, output: ImageFormat) -> Result<Vec<u8>, String> {
 	report_progress("Loading image...");
-    let img = image::load_from_memory(&image_data).map_err(map_image_err)?;
+    let img = image::load_from_memory_with_format(&image_data, input).map_err(map_image_err)?;
     let mut output_data: Vec<u8> = Vec::new();
 	report_progress("Converting to new format...");
     img.write_to(&mut Cursor::new(&mut output_data), output).map_err(map_image_err)?;
@@ -18,19 +18,24 @@ fn convert(image_data: Vec<u8>, output: ImageFormat) -> Result<Vec<u8>, String> 
     Ok(output_data)
 }
 
+fn str_to_type(s: &str) -> Option<ImageFormat> {
+	match s.to_lowercase().as_str() {
+		"png" => Some(ImageFormat::Png),
+		"jpeg" | "jpg" => Some(ImageFormat::Jpeg),
+		"gif" => Some(ImageFormat::Gif),
+		"bmp" => Some(ImageFormat::Bmp),
+		"ico" => Some(ImageFormat::Ico),
+		"tiff" => Some(ImageFormat::Tiff),
+		"webp" => Some(ImageFormat::WebP),
+		_ => None,
+	}
+}
+
 #[wasm_bindgen]
-pub fn convert_exposed(image_data: Vec<u8>, output: String) -> Result<Vec<u8>, String> {
-    let output = match output.to_lowercase().as_str() {
-        "png" => ImageFormat::Png,
-        "jpeg" | "jpg" => ImageFormat::Jpeg,
-        "gif" => ImageFormat::Gif,
-        "bmp" => ImageFormat::Bmp,
-        "ico" => ImageFormat::Ico,
-        "tiff" => ImageFormat::Tiff,
-        "webp" => ImageFormat::WebP,
-        _ => return Err("Unsupported output format".to_string()),
-    } ;
-    convert(image_data, output)
+pub fn convert_exposed(image_data: Vec<u8>, input: String, output: String) -> Result<Vec<u8>, String> {
+    let input = str_to_type(&input).ok_or_else(|| format!("Unsupported input format: {}", input))?;
+    let output = str_to_type(&output).ok_or_else(|| format!("Unsupported output format: {}", output))?;
+    convert(image_data, input, output)
 }
 
 fn report_progress(message: &str) {
