@@ -28,12 +28,6 @@
       align-items: center;
     }
 
-    .icon-btn {
-      background-color: var(--main-bg-color);
-      border: 1px solid var(--main-bg-color);
-      margin: 1px;
-    }
-
     #error-message {
       background-color: var(--main-error-color);
       border: 1px solid var(--main-draw-color);
@@ -94,7 +88,11 @@
       <li>Everything stays on your device, private and secure</li>
     </ul>
 
-    <p>TODO create field</p>
+    <p>Choose file to convert.</p>
+
+    <input type="file" id="fileInput" accept="image/*" />
+
+    <button id="convertBtn" onclick="convert"></button>
     
     <div id="loader" style="display: none;">
       <span class="loader"></span>
