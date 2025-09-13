@@ -213,7 +213,7 @@
 
         // TODO remove dot from filename if present
         const fileName = file.name;
-        const inputType = "png";
+        const inputType = file.type;
         const imageDataBuffer = await file.arrayBuffer();
         const imageData = new Uint8Array(imageDataBuffer);
         const imageTransfer = imageData.buffer;
