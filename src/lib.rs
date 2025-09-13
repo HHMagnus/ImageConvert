@@ -20,13 +20,21 @@ fn convert(image_data: Vec<u8>, input: ImageFormat, output: ImageFormat) -> Resu
 
 fn str_to_type(s: &str) -> Option<ImageFormat> {
 	match s.to_lowercase().as_str() {
-		"png" => Some(ImageFormat::Png),
-		"jpeg" | "jpg" => Some(ImageFormat::Jpeg),
-		"gif" => Some(ImageFormat::Gif),
-		"bmp" => Some(ImageFormat::Bmp),
-		"ico" => Some(ImageFormat::Ico),
-		"tiff" => Some(ImageFormat::Tiff),
-		"webp" => Some(ImageFormat::WebP),
+		"image/avif" => Some(ImageFormat::Avif),
+		"image/bmp" | "image/x-bmp" => Some(ImageFormat::Bmp),
+		"image/vnd-ms.dds" | "image/x-direct-draw-surface" => Some(ImageFormat::Dds),
+		"image/x-exr" => Some(ImageFormat::OpenExr),
+		"image/ff" => Some(ImageFormat::Farbfeld),
+		"image/gif" => Some(ImageFormat::Gif),
+		"image/vnd.radiance" => Some(ImageFormat::Hdr),
+		"image/x-icon" => Some(ImageFormat::Ico),
+		"image/jpeg" => Some(ImageFormat::Jpeg),
+		"image/png" => Some(ImageFormat::Png),
+		"image/x-portable-bitmap" | "image/x-portable-graymap" | "image/x-portable-pixmap" | "image/x-portable-anymap" => Some(ImageFormat::Pnm),
+		"image/qoi" => Some(ImageFormat::Qoi),
+		"image/x-tga" | "image/x-targa" => Some(ImageFormat::Tga),
+		"image/tiff" | "image/tiff-fx" => Some(ImageFormat::Tiff),
+		"image/webp" => Some(ImageFormat::WebP),
 		_ => None,
 	}
 }
