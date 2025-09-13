@@ -4,9 +4,5 @@ Features:
 - As a User I want to be able to control any parameters that effect the quality of the output
 
 TODO:
-- Deploy to github pages
-- test images types for example gif
-- Make it possible to paste in from a snipping tool
 - Check documentation for more advanced look at lossy compression
-- Make a favorite section for the most common conversion
 - Custom domain
