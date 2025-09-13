@@ -78,36 +78,44 @@
       margin-top: 0px;
     }
 
+    #outputSection {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
     </style>
   </head>
   <body>
     <h1>Offline Image Converter</h1>
     <ul id="features">
-      <li>Convert between XXXX</li>
+      <li>Convert between different image formats directly in the browser</li>
       <li>No cloud, no uploads, no installs, no downloads</li>
       <li>Everything stays on your device, private and secure</li>
     </ul>
 
-    <p>Choose file to convert.</p>
+    <p>Paste an image using CTLR-V or choose a image from:</p>
 
     <input type="file" id="fileInput" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
 
-    <select id="outputType">
-      <option value="image/avif">AVIF</option>
-      <option value="image/bmp">BMP</option>
-      <option value="image/x-exr">OpenEXR</option>
-      <option value="image/ff">Farbfeld</option>
-      <option value="image/gif">GIF</option>
-      <option value="image/vnd.radiance">HDR</option>
-      <option value="image/x-icon">ICO</option>
-      <option value="image/jpeg">JPEG</option>
-      <option value="image/png">PNG</option>
-      <option value="image/x-portable-bitmap">PNM</option>
-      <option value="image/qoi">QOI</option>
-      <option value="image/x-tga">TGA</option>
-      <option value="image/tiff">TIFF</option>
-      <option value="image/webp">WebP</option>
-    </select>
+    <div id="outputSection">
+      <label for="outputType">Output format:</label>
+      <select id="outputType">
+        <option value="image/avif">AVIF</option>
+        <option value="image/bmp">BMP</option>
+        <option value="image/x-exr">OpenEXR</option>
+        <option value="image/ff">Farbfeld</option>
+        <option value="image/gif">GIF</option>
+        <option value="image/vnd.radiance">HDR</option>
+        <option value="image/x-icon">ICO</option>
+        <option value="image/jpeg">JPEG</option>
+        <option value="image/png">PNG</option>
+        <option value="image/x-portable-bitmap">PNM</option>
+        <option value="image/qoi">QOI</option>
+        <option value="image/x-tga">TGA</option>
+        <option value="image/tiff">TIFF</option>
+        <option value="image/webp">WebP</option>
+      </select>
+    </div>
 
     <button id="convertBtn" onclick="convert()">Convert</button>
     
