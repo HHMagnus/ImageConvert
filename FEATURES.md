@@ -4,7 +4,6 @@ Features:
 - As a User I want to be able to control any parameters that effect the quality of the output
 
 TODO:
-- fix file name ending to correct formatted file
 - Make sure input and output images are correct
 - Fill in keywords section
 - Style the file section
