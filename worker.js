@@ -21,7 +21,7 @@ onmessage = async (event) => {
   try {
     const convertedImage = convert_exposed(imageData, inputType, outputType);
 
-    postMessage({ type: "done", imageData: convertedImage, fileName, outputType }, [mergedPdf.buffer]);
+    postMessage({ type: "done", imageData: convertedImage, fileName, outputType }, [convertedImage.buffer]);
   } catch (err) {
     if (err instanceof WebAssembly.RuntimeError) {
       postMessage({ type: "error", message: "Unexpected WASM exception: " + err.message });
