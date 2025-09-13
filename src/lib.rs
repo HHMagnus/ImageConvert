@@ -20,11 +20,19 @@ fn convert(image_data: Vec<u8>, input: ImageFormat, output: ImageFormat) -> Resu
 
 fn str_to_type(s: &str) -> Option<ImageFormat> {
 	match s.to_lowercase().as_str() {
-		"png" => Some(ImageFormat::Png),
-		"jpeg" | "jpg" => Some(ImageFormat::Jpeg),
-		"gif" => Some(ImageFormat::Gif),
+		"avif" => Some(ImageFormat::Avif),
 		"bmp" => Some(ImageFormat::Bmp),
+		"dds" => Some(ImageFormat::Dds),
+		"exr" => Some(ImageFormat::OpenExr),
+		"ff" => Some(ImageFormat::Farbfeld),
+		"gif" => Some(ImageFormat::Gif),
+		"hdr" => Some(ImageFormat::Hdr),
 		"ico" => Some(ImageFormat::Ico),
+		"jpeg" => Some(ImageFormat::Jpeg),
+		"png" => Some(ImageFormat::Png),
+		"pnm" => Some(ImageFormat::Pnm),
+		"qoi" => Some(ImageFormat::Qoi),
+		"tga" => Some(ImageFormat::Tga),
 		"tiff" => Some(ImageFormat::Tiff),
 		"webp" => Some(ImageFormat::WebP),
 		_ => None,
