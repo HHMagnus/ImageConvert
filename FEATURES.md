@@ -15,3 +15,4 @@ TODO:
 - Fill in keywords section
 - correctly select media type when downloading
 - Check documentation for more advanced look at lossy compression
+- test images types for example gif
