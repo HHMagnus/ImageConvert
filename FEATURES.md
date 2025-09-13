@@ -10,4 +10,4 @@ TODO:
 - Research possible advanced section
 - Deploy to github pages
 - Custom domain
-- Create README.md
+- Add types to meta data
