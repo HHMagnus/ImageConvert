@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="description" content="Convert images between types directly in your browser using WebAssembly (WASM). No uploads, everything stays on your device for privacy and security.">
-    <meta name="keywords" content="TODO fill in">
+    <meta name="keywords" content="JPG to PNG, PNG to JPG, image converter, convert images, image conversion, WebAssembly, WASM, offline, privacy, secure, no upload, no cloud, no install">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Magnus Hindborg Hovmann">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -78,36 +78,44 @@
       margin-top: 0px;
     }
 
+    #outputSection {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
     </style>
   </head>
   <body>
     <h1>Offline Image Converter</h1>
     <ul id="features">
-      <li>Convert between XXXX</li>
+      <li>Convert between different image formats directly in the browser</li>
       <li>No cloud, no uploads, no installs, no downloads</li>
       <li>Everything stays on your device, private and secure</li>
     </ul>
 
-    <p>Choose file to convert.</p>
+    <p>Paste an image using CTLR-V or choose a image from:</p>
 
     <input type="file" id="fileInput" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
 
-    <select id="outputType">
-      <option value="image/avif">AVIF</option>
-      <option value="image/bmp">BMP</option>
-      <option value="image/x-exr">OpenEXR</option>
-      <option value="image/ff">Farbfeld</option>
-      <option value="image/gif">GIF</option>
-      <option value="image/vnd.radiance">HDR</option>
-      <option value="image/x-icon">ICO</option>
-      <option value="image/jpeg">JPEG</option>
-      <option value="image/png">PNG</option>
-      <option value="image/x-portable-bitmap">PNM</option>
-      <option value="image/qoi">QOI</option>
-      <option value="image/x-tga">TGA</option>
-      <option value="image/tiff">TIFF</option>
-      <option value="image/webp">WebP</option>
-    </select>
+    <div id="outputSection">
+      <label for="outputType">Output format:</label>
+      <select id="outputType">
+        <option value="image/avif">AVIF</option>
+        <option value="image/bmp">BMP</option>
+        <option value="image/x-exr">OpenEXR</option>
+        <option value="image/ff">Farbfeld</option>
+        <option value="image/gif">GIF</option>
+        <option value="image/vnd.radiance">HDR</option>
+        <option value="image/x-icon">ICO</option>
+        <option value="image/jpeg">JPEG</option>
+        <option value="image/png">PNG</option>
+        <option value="image/x-portable-bitmap">PNM</option>
+        <option value="image/qoi">QOI</option>
+        <option value="image/x-tga">TGA</option>
+        <option value="image/tiff">TIFF</option>
+        <option value="image/webp">WebP</option>
+      </select>
+    </div>
 
     <button id="convertBtn" onclick="convert()">Convert</button>
     
@@ -188,6 +196,33 @@
         hideLoader();
       };
 
+      function fileExtension(outputType) {
+        // Should match the options in the select element
+        switch (outputType) {
+          case "image/avif": return "avif";
+          case "image/bmp": return "bmp";
+          case "image/x-exr": return "exr";
+          case "image/ff": return "ff";
+          case "image/gif": return "gif";
+          case "image/vnd.radiance": return "hdr";
+          case "image/x-icon": return "ico";
+          case "image/jpeg": return "jpg";
+          case "image/png": return "png";
+          case "image/x-portable-bitmap": return "pbm";
+          case "image/qoi": return "qoi";
+          case "image/x-tga": return "tga";
+          case "image/tiff": return "tiff";
+          case "image/webp": return "webp";
+        };
+        return "bin";
+      }
+
+      function newFileName(originalFileName, outputType) {
+        const withoutExtension = originalFileName.replace(/\.[^/.]+$/, "");
+        const extension = fileExtension(outputType);
+        return withoutExtension + "." + extension;
+      }
+
       const fileInput = document.getElementById('fileInput');
       const outputTypeElement = document.getElementById("outputType");
       async function convert() {
@@ -211,8 +246,7 @@
         showLoader();
         hideError();
 
-        // TODO remove dot from filename if present
-        const fileName = file.name;
+        const fileName = newFileName(file.name, outputType);
         const inputType = file.type;
         const imageDataBuffer = await file.arrayBuffer();
         const imageData = new Uint8Array(imageDataBuffer);
