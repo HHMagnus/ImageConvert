@@ -186,6 +186,12 @@ function passArray8ToWasm0(arg, malloc) {
     return ptr;
 }
 
+function _assertClass(instance, klass) {
+    if (!(instance instanceof klass)) {
+        throw new Error(`expected instance of ${klass.name}`);
+    }
+}
+
 function takeFromExternrefTable0(idx) {
     const value = wasm.__wbindgen_export_2.get(idx);
     wasm.__externref_table_dealloc(idx);
@@ -200,22 +206,44 @@ function getArrayU8FromWasm0(ptr, len) {
  * @param {Uint8Array} image_data
  * @param {string} input
  * @param {string} output
+ * @param {EncoderInput} options
  * @returns {Uint8Array}
  */
-export function convert_exposed(image_data, input, output) {
+export function convert_exposed(image_data, input, output, options) {
     const ptr0 = passArray8ToWasm0(image_data, wasm.__wbindgen_malloc);
     const len0 = WASM_VECTOR_LEN;
     const ptr1 = passStringToWasm0(input, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len1 = WASM_VECTOR_LEN;
     const ptr2 = passStringToWasm0(output, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len2 = WASM_VECTOR_LEN;
-    const ret = wasm.convert_exposed(ptr0, len0, ptr1, len1, ptr2, len2);
+    _assertClass(options, EncoderInput);
+    var ptr3 = options.__destroy_into_raw();
+    const ret = wasm.convert_exposed(ptr0, len0, ptr1, len1, ptr2, len2, ptr3);
     if (ret[3]) {
         throw takeFromExternrefTable0(ret[2]);
     }
-    var v4 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
+    var v5 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 1, 1);
-    return v4;
+    return v5;
+}
+
+const EncoderInputFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_encoderinput_free(ptr >>> 0, 1));
+
+export class EncoderInput {
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        EncoderInputFinalization.unregister(this);
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_encoderinput_free(ptr, 0);
+    }
 }
 
 const EXPECTED_RESPONSE_TYPES = new Set(['basic', 'cors', 'default']);
