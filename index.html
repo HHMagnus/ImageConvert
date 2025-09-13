@@ -142,7 +142,6 @@
     <script type="module">
       const worker = new Worker("./worker.js", { type: "module" });
 
-      // TODO output type should match media type
       function downloadImage(imageData, fileName, outputType) {
         const blob = new Blob([imageData], { type: outputType });
         const url = URL.createObjectURL(blob);
