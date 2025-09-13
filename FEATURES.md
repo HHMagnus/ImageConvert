@@ -10,4 +10,5 @@ TODO:
 - Research possible advanced section
 - Deploy to github pages
 - Custom domain
-- Add types to meta data
+- Fill in keywords section
+- correctly select media type when downloading
