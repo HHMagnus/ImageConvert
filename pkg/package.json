@@ -1,0 +1,15 @@
+{
+  "name": "image_convert",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "image_convert_bg.wasm",
+    "image_convert.js",
+    "image_convert.d.ts"
+  ],
+  "main": "image_convert.js",
+  "types": "image_convert.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
