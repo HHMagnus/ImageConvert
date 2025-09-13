@@ -142,26 +142,32 @@
       <summary>
         Advanced options (click to expand)
       </summary>
+      <div>
+        <label for="quality">Quality (0-100, where 100 is best quality):</label>
+        <input type="number" id="quality" name="quality" min="0" max="100" />
+      </div>
 
-      <label for="quality">Quality (0-100, where 100 is best quality):</label>
-      <input type="number" id="quality" name="quality" min="0" max="100" />
+      <div>
+        <label for="compression">Compression method:</label>
+        <select id="compression" name="compression">
+          <option value="fast">Fast</option>
+          <option value="best">Best</option>
+          <option value="default">Default</option>
+        </select>
+      </div>
 
-      <label for="compression">Compression method:</label>
-      <select id="compression" name="compression">
-        <option value="fast">Fast</option>
-        <option value="best">Best</option>
-        <option value="default">Default</option>
-      </select>
+      <div>
+        <label for="filter">Filter type:</label>
+        <select id="filter" name="filter">
+          <option value="adaptive">Adaptive</option>
+          <option value="no_filter">No filter</option>
+          <option value="sub">Sub</option>
+          <option value="up">Up</option>
+          <option value="avg">Avg</option>
+          <option value="paeth">Paeth</option>
+        </select>
+      </div>
 
-      <label for="filter">Filter type:</label>
-      <select id="filter" name="filter">
-        <option value="adaptive">Adaptive</option>
-        <option value="no_filter">No filter</option>
-        <option value="sub">Sub</option>
-        <option value="up">Up</option>
-        <option value="avg">Avg</option>
-        <option value="paeth">Paeth</option>
-      </select>
     </details>
 
     <button id="convertBtn" onclick="convert()">Convert</button>
