@@ -4,5 +4,7 @@ Features:
 - As a User I want to be able to control any parameters that effect the quality of the output
 
 TODO:
-- Check documentation for more advanced look at lossy compression
+- Connect quality options to WebAssembly for both png and jpeg
+- Make the advanced section show up in a better way
+- Style the entire section so it is possible to view the different sections
 - Custom domain
