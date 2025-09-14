@@ -175,7 +175,7 @@
           Advanced options (click to expand)
         </summary>
         <div id="advancedInput-image/png" style="display: none;">
-          <label for="quality">Quality (0 worst, 100 best):</label>
+          <label for="quality">Quality (0 low, 100 high):</label>
           <input type="number" id="quality" name="quality" min="0" max="100" value="100" />
         </div>
 
@@ -183,16 +183,16 @@
           <div>
             <label for="compression">Compression method:</label>
             <select id="compression" name="compression">
-              <option value="fast">Fast</option>
-              <option value="best">Best</option>
-              <option value="default">Default</option>
+              <option value="fast">Fast, minimal compression</option>
+              <option value="best">Best compression level</option>
+              <option value="default">Default compression level</option>
             </select>
           </div>
 
           <div>
             <label for="filter">Filter type:</label>
             <select id="filter" name="filter">
-              <option value="adaptive">Adaptive</option>
+              <option value="adaptive">Automatic</option>
               <option value="no_filter">No filter</option>
               <option value="sub">Sub</option>
               <option value="up">Up</option>
@@ -200,6 +200,7 @@
               <option value="paeth">Paeth</option>
             </select>
           </div>
+          <a href="https://www.libpng.org/pub/png/spec/1.2/PNG-Filters.html" target="_blank" rel="noopener noreferrer">Read more about PNG filters</a>
         </div>
       </details>
 
