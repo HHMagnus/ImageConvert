@@ -6,5 +6,5 @@ Features:
 TODO:
 - Make the advanced section show up in a better way
 - Style the entire section so it is possible to view the different sections
-- Make selection of a PNG automatically set JPEG and reverse
+- ensure errors are properly shown and hidden
 - Custom domain

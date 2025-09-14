@@ -105,7 +105,7 @@
 
     <p>Paste an image using CTLR-V or choose a image from:</p>
 
-    <input type="file" id="fileInput" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
+    <input type="file" id="fileInput" onchange="fileInputChanged(event)" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
 
     <div id="filePasteSection" style="display: none;">
       <p>Pasted file</p>
@@ -380,6 +380,20 @@
         advancedInput.style.display = constainsAdvancedOptions ? 'block' : 'none';
       }
       window.selectChanged = selectChanged;
+
+      function fileInputChanged(event) {
+        const fileType = event.target.files[0]?.type;
+
+        const outputType = outputTypeElement.value;
+        if (fileType === "image/png" && outputType === "image/png") {
+          outputTypeElement.value = "image/jpeg";
+          selectChanged({ target: outputTypeElement });
+        } else if (fileType === "image/jpeg" && outputType === "image/jpeg") {
+          outputTypeElement.value = "image/png";
+          selectChanged({ target: outputTypeElement });
+        }
+      }
+      window.fileInputChanged = fileInputChanged;
 
     </script>
   </body>
