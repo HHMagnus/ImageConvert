@@ -4,6 +4,6 @@ Features:
 - As a User I want to be able to control any parameters that effect the quality of the output
 
 TODO:
-- Style the entire section so it is possible to view the different sections
 - ensure errors are properly shown and hidden
+- BUG: Paste does not remove file
 - Custom domain

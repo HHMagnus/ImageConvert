@@ -34,6 +34,17 @@
       border-radius: 3px;
       padding: 6px;
     }
+
+    #inputSection {
+      border: 2px dashed var(--main-border-color);
+      color: var(--main-border-color);
+      padding: 1em;
+    }
+
+    #inputSection:hover {
+      border: 2px dashed var(--main-draw-color);
+      color: var(--main-draw-color);
+    }
         
     @keyframes shake {
       0%   { transform: translateX(0); }
@@ -113,13 +124,17 @@
       <li>Everything stays on your device, private and secure</li>
     </ul>
 
+    <hr style="width: 35em;">
+
     <p>Paste an image using CTLR-V or choose a image from:</p>
 
-    <input type="file" id="fileInput" onchange="fileInputChanged(event)" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
+    <div id="inputSection">
+      <input type="file" id="fileInput" onchange="fileInputChanged(event)" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
 
-    <div id="filePasteSection" style="display: none;">
-      <p>Pasted file</p>
-      <button onclick="resetPaste()">Reset</button>
+      <div id="filePasteSection" style="display: none;">
+        <p>Pasted file</p>
+        <button onclick="resetPaste()">Reset</button>
+      </div>
     </div>
 
     <div id="outputSection">
