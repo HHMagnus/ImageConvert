@@ -16,10 +16,10 @@ onmessage = async (event) => {
     return;
   }
 
-  const { imageData, fileName, inputType, outputType } = event.data;
+  const { imageData, fileName, inputType, outputType, options } = event.data;
 
   try {
-    const convertedImage = convert_exposed(imageData, inputType, outputType);
+    const convertedImage = convert_exposed(imageData, inputType, outputType, options);
 
     postMessage({ type: "done", imageData: convertedImage, fileName, outputType }, [convertedImage.buffer]);
   } catch (err) {

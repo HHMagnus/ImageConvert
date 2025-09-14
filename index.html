@@ -147,7 +147,7 @@
         <input type="number" id="quality" name="quality" min="0" max="100" />
       </div>
 
-      <div id="advancedInput-image/jpeg" style="display: none;">
+      <div id="advancedInput-image/jpeg">
         <div>
           <label for="compression">Compression method:</label>
           <select id="compression" name="compression">
@@ -277,6 +277,29 @@
         return withoutExtension + "." + extension;
       }
 
+      const advancedQualityInput = document.getElementById("quality");
+      const advancedCompressionInput = document.getElementById("compression");
+      const advancedFilterInput = document.getElementById("filter");
+      function getOptions() {
+        const isOpen = advancedInput.open;
+        if (!isOpen) {
+          return {};
+        }
+
+        if (outputTypeElement.value === "image/png") {
+          const quality = parseInt(advancedQualityInput.value);
+          if (!isNaN(quality)) {
+            return { quality };
+          }
+        } else if (outputTypeElement.value === "image/jpeg") {
+          const compression = advancedCompressionInput.value;
+          const filter = advancedFilterInput.value;
+          return { compression, filter };
+        }
+        
+        return {};
+      }
+
       let pasted = false;
 
       const fileInput = document.getElementById('fileInput');
@@ -302,13 +325,15 @@
         showLoader();
         hideError();
 
+        const options = getOptions(outputType);
+
         const fileName = newFileName(file.name, outputType);
         const inputType = file.type;
         const imageDataBuffer = await file.arrayBuffer();
         const imageData = new Uint8Array(imageDataBuffer);
         const imageTransfer = imageData.buffer;
-        
-        worker.postMessage({ imageData, fileName, inputType, outputType }, [imageTransfer]);
+
+        worker.postMessage({ imageData, fileName, inputType, outputType, options }, [imageTransfer]);
       }
       window.convert = convert;
       
@@ -335,7 +360,8 @@
           }
         }
       });
-      
+
+      const advancedInput = document.getElementById("advancedInput");
       function selectChanged(event) {
         const outputType = event.target.value;
         const advancedInputDivs = document.querySelectorAll("#advancedInput > div");
@@ -351,7 +377,7 @@
           constainsAdvancedOptions = true;
         }
 
-        document.getElementById("advancedInput").style.display = constainsAdvancedOptions ? 'block' : 'none';
+        advancedInput.style.display = constainsAdvancedOptions ? 'block' : 'none';
       }
       window.selectChanged = selectChanged;
 
