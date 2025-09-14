@@ -34,6 +34,17 @@
       border-radius: 3px;
       padding: 6px;
     }
+
+    #inputSection {
+      border: 2px dashed var(--main-border-color);
+      color: var(--main-border-color);
+      padding: 1em;
+    }
+
+    #inputSection:hover {
+      border: 2px dashed var(--main-draw-color);
+      color: var(--main-draw-color);
+    }
         
     @keyframes shake {
       0%   { transform: translateX(0); }
@@ -93,6 +104,22 @@
       }
     }
 
+    #convertBtn {
+      margin-top: 0.5em;
+    }
+
+    #advancedInput {
+      * {
+        margin-bottom: 0.5em;
+      }
+    }
+
+    #actionSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     </style>
   </head>
   <body>
@@ -103,78 +130,85 @@
       <li>Everything stays on your device, private and secure</li>
     </ul>
 
+    <hr style="width: 35em;">
+
     <p>Paste an image using CTLR-V or choose a image from:</p>
 
-    <input type="file" id="fileInput" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
+    <div id="inputSection">
+      <input type="file" id="fileInput" onchange="fileInputChanged(event)" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
 
-    <div id="filePasteSection" style="display: none;">
-      <p>Pasted file</p>
-      <button onclick="resetPaste()">Reset</button>
-    </div>
-
-    <div id="outputSection">
-      <label for="outputType">Output format:</label>
-      <select id="outputType">
-        
-        <optgroup label="Most used:">
-          <option value="image/jpeg">JPEG</option>
-          <option value="image/png">PNG</option>
-        </optgroup>
-        
-        <optgroup label="More:">
-          <option value="image/avif">AVIF</option>
-          <option value="image/bmp">BMP</option>
-          <option value="image/x-exr">OpenEXR</option>
-          <option value="image/ff">Farbfeld</option>
-          <option value="image/gif">GIF</option>
-          <option value="image/vnd.radiance">HDR</option>
-          <option value="image/x-icon">ICO</option>
-          <option value="image/x-portable-bitmap">PNM</option>
-          <option value="image/qoi">QOI</option>
-          <option value="image/x-tga">TGA</option>
-          <option value="image/tiff">TIFF</option>
-          <option value="image/webp">WebP</option>
-        </optgroup>
-      </select>
-    </div>
-
-    <details id="advancedInput">
-      <summary>
-        Advanced options (click to expand)
-      </summary>
-      <div>
-        <label for="quality">Quality (0-100, where 100 is best quality):</label>
-        <input type="number" id="quality" name="quality" min="0" max="100" />
+      <div id="filePasteSection" style="display: none;">
+        <p>Pasted file</p>
+        <button onclick="resetPaste()">Reset</button>
       </div>
+    </div>
 
-      <div>
-        <label for="compression">Compression method:</label>
-        <select id="compression" name="compression">
-          <option value="fast">Fast</option>
-          <option value="best">Best</option>
-          <option value="default">Default</option>
+    <div id="actionSection" style="display: none;">
+      <div id="outputSection">
+        <label for="outputType">Output format:</label>
+        <select id="outputType" onchange="selectChanged(event)">
+          
+          <optgroup label="Most used:">
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/png">PNG</option>
+          </optgroup>
+          
+          <optgroup label="More:">
+            <option value="image/avif">AVIF</option>
+            <option value="image/bmp">BMP</option>
+            <option value="image/x-exr">OpenEXR</option>
+            <option value="image/ff">Farbfeld</option>
+            <option value="image/gif">GIF</option>
+            <option value="image/vnd.radiance">HDR</option>
+            <option value="image/x-icon">ICO</option>
+            <option value="image/x-portable-bitmap">PNM</option>
+            <option value="image/qoi">QOI</option>
+            <option value="image/x-tga">TGA</option>
+            <option value="image/tiff">TIFF</option>
+            <option value="image/webp">WebP</option>
+          </optgroup>
         </select>
       </div>
 
-      <div>
-        <label for="filter">Filter type:</label>
-        <select id="filter" name="filter">
-          <option value="adaptive">Adaptive</option>
-          <option value="no_filter">No filter</option>
-          <option value="sub">Sub</option>
-          <option value="up">Up</option>
-          <option value="avg">Avg</option>
-          <option value="paeth">Paeth</option>
-        </select>
+      <details id="advancedInput">
+        <summary>
+          Advanced options (click to expand)
+        </summary>
+        <div id="advancedInput-image/png" style="display: none;">
+          <label for="quality">Quality (0 worst, 100 best):</label>
+          <input type="number" id="quality" name="quality" min="0" max="100" value="100" />
+        </div>
+
+        <div id="advancedInput-image/jpeg">
+          <div>
+            <label for="compression">Compression method:</label>
+            <select id="compression" name="compression">
+              <option value="fast">Fast</option>
+              <option value="best">Best</option>
+              <option value="default">Default</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="filter">Filter type:</label>
+            <select id="filter" name="filter">
+              <option value="adaptive">Adaptive</option>
+              <option value="no_filter">No filter</option>
+              <option value="sub">Sub</option>
+              <option value="up">Up</option>
+              <option value="avg">Avg</option>
+              <option value="paeth">Paeth</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <button id="convertBtn" onclick="convert()">Convert</button>
+      
+      <div id="loader" style="display: none;">
+        <span class="loader"></span>
+        <p id="progress">Starting...</p>
       </div>
-
-    </details>
-
-    <button id="convertBtn" onclick="convert()">Convert</button>
-    
-    <div id="loader" style="display: none;">
-      <span class="loader"></span>
-      <p id="progress">Starting...</p>
     </div>
 
     <p id="error-message" style="display: none;">
@@ -202,6 +236,14 @@
     </script>
     <script type="module">
       const worker = new Worker("./worker.js", { type: "module" });
+
+      const actionSection = document.getElementById("actionSection");
+      function hideActions() {
+        actionSection.style.display = 'none';
+      }
+      function showActions() {
+        actionSection.style.display = 'flex';
+      }
 
       function downloadImage(imageData, fileName, outputType) {
         const blob = new Blob([imageData], { type: outputType });
@@ -242,6 +284,7 @@
         }
 
         if (type === "done") {
+          hideError();
           downloadImage(imageData, fileName, outputType);
         } else if (type === "error") {
           showError(message);
@@ -276,6 +319,30 @@
         return withoutExtension + "." + extension;
       }
 
+      const advancedQualityInput = document.getElementById("quality");
+      const advancedCompressionInput = document.getElementById("compression");
+      const advancedFilterInput = document.getElementById("filter");
+      function getOptions() {
+        const isOpen = advancedInput.open;
+        if (!isOpen) {
+          return {};
+        }
+
+        if (outputTypeElement.value === "image/png") {
+          const qualityInt = parseInt(advancedQualityInput.value);
+          if (!isNaN(qualityInt)) {
+            const quality = Math.min(100, Math.max(0, qualityInt));
+            return { quality };
+          }
+        } else if (outputTypeElement.value === "image/jpeg") {
+          const compression = advancedCompressionInput.value;
+          const filter = advancedFilterInput.value;
+          return { compression, filter };
+        }
+        
+        return {};
+      }
+
       let pasted = false;
 
       const fileInput = document.getElementById('fileInput');
@@ -301,13 +368,15 @@
         showLoader();
         hideError();
 
+        const options = getOptions(outputType);
+
         const fileName = newFileName(file.name, outputType);
         const inputType = file.type;
         const imageDataBuffer = await file.arrayBuffer();
         const imageData = new Uint8Array(imageDataBuffer);
         const imageTransfer = imageData.buffer;
-        
-        worker.postMessage({ imageData, fileName, inputType, outputType }, [imageTransfer]);
+
+        worker.postMessage({ imageData, fileName, inputType, outputType, options }, [imageTransfer]);
       }
       window.convert = convert;
       
@@ -316,6 +385,8 @@
         pasted = false;
         filePasteSection.style.display = 'none';
         fileInput.style.display = 'block';
+        hideActions();
+        hideError();
       }
       window.resetPaste = resetPaste;
 
@@ -330,10 +401,54 @@
             pasted = true;
 
             fileInput.style.display = 'none';
+            fileInput.value = null;
             filePasteSection.style.display = 'flex';
+            fileInputChanged(file.type);
+            showActions();
+            hideError();
           }
         }
       });
+
+      const advancedInput = document.getElementById("advancedInput");
+      function selectChanged(event) {
+        const outputType = event.target.value;
+        const advancedInputDivs = document.querySelectorAll("#advancedInput > div");
+        advancedInputDivs.forEach(div => {
+          div.style.display = 'none';
+        });
+
+        let constainsAdvancedOptions = false;
+
+        const specificDiv = document.getElementById("advancedInput-" + outputType);
+        if (specificDiv) {
+          specificDiv.style.display = 'block';
+          constainsAdvancedOptions = true;
+        }
+
+        advancedInput.style.display = constainsAdvancedOptions ? 'block' : 'none';
+        hideError();
+      }
+      window.selectChanged = selectChanged;
+
+      function fileInputChangedEvent(event) {
+        const fileType = event.target.files[0]?.type;
+        fileInputChanged(fileType);
+      }
+      window.fileInputChanged = fileInputChangedEvent;
+
+      function fileInputChanged(fileType) {
+        const outputType = outputTypeElement.value;
+        if (fileType === "image/png" && outputType === "image/png") {
+          outputTypeElement.value = "image/jpeg";
+          selectChanged({ target: outputTypeElement });
+        } else if (fileType === "image/jpeg" && outputType === "image/jpeg") {
+          outputTypeElement.value = "image/png";
+          selectChanged({ target: outputTypeElement });
+        }
+        showActions();
+        hideError();
+      }
 
     </script>
   </body>

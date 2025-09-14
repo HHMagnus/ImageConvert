@@ -244,6 +244,21 @@ export class EncoderInput {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_encoderinput_free(ptr, 0);
     }
+    /**
+     * @param {number | null} [quality]
+     * @param {string | null} [compression]
+     * @param {string | null} [filter]
+     */
+    constructor(quality, compression, filter) {
+        var ptr0 = isLikeNone(compression) ? 0 : passStringToWasm0(compression, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len0 = WASM_VECTOR_LEN;
+        var ptr1 = isLikeNone(filter) ? 0 : passStringToWasm0(filter, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len1 = WASM_VECTOR_LEN;
+        const ret = wasm.encoderinput_new(isLikeNone(quality) ? 0xFFFFFF : quality, ptr0, len0, ptr1, len1);
+        this.__wbg_ptr = ret >>> 0;
+        EncoderInputFinalization.register(this, this.__wbg_ptr, this);
+        return this;
+    }
 }
 
 const EXPECTED_RESPONSE_TYPES = new Set(['basic', 'cors', 'default']);

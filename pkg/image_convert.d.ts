@@ -2,8 +2,8 @@
 /* eslint-disable */
 export function convert_exposed(image_data: Uint8Array, input: string, output: string, options: EncoderInput): Uint8Array;
 export class EncoderInput {
-  private constructor();
   free(): void;
+  constructor(quality?: number | null, compression?: string | null, filter?: string | null);
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -11,6 +11,7 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly __wbg_encoderinput_free: (a: number, b: number) => void;
+  readonly encoderinput_new: (a: number, b: number, c: number, d: number, e: number) => number;
   readonly convert_exposed: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => [number, number, number, number];
   readonly __wbindgen_exn_store: (a: number) => void;
   readonly __externref_table_alloc: () => number;
