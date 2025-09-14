@@ -4,6 +4,5 @@ Features:
 - As a User I want to be able to control any parameters that effect the quality of the output
 
 TODO:
-- ensure errors are properly shown and hidden
-- BUG: Paste does not remove file
+- BUG: Not possible to reset file
 - Custom domain
