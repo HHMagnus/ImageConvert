@@ -1,4 +1,4 @@
-import init, { convert_exposed } from "./pkg/image_convert.js";
+import init, { EncoderInput, convert_exposed } from "./pkg/image_convert.js";
 
 let wasmReady = false;
 
@@ -16,7 +16,13 @@ onmessage = async (event) => {
     return;
   }
 
-  const { imageData, fileName, inputType, outputType, options } = event.data;
+  const { imageData, fileName, inputType, outputType, options: optionsRaw } = event.data;
+
+  const options = new EncoderInput(
+    optionsRaw.quality,
+    optionsRaw.compression,
+    optionsRaw.filter
+  );
 
   try {
     const convertedImage = convert_exposed(imageData, inputType, outputType, options);

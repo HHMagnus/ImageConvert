@@ -17,6 +17,14 @@ pub struct EncoderInput {
 	filter: Option<String>,
 }
 
+#[wasm_bindgen]
+impl EncoderInput {
+    #[wasm_bindgen(constructor)]
+    pub fn new(quality: Option<u8>, compression: Option<String>, filter: Option<String>) -> EncoderInput {
+        EncoderInput { quality, compression, filter }
+    }
+}
+
 impl EncoderInput {
 	fn to_options(&self, format: ImageFormat) -> EncoderOptions {
 		match format {
