@@ -22,10 +22,24 @@
     }
 
     body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, header, footer, main {
       background-color: var(--main-bg-color);
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    footer {
+      padding: 1em;
     }
 
     #error-message {
@@ -123,98 +137,105 @@
     </style>
   </head>
   <body>
-    <h1>Offline Image Converter</h1>
-    <ul id="features">
-      <li>Convert between different image formats directly in the browser</li>
-      <li>No cloud, no uploads, no installs, no downloads</li>
-      <li>Everything stays on your device, private and secure</li>
-    </ul>
+    <header>
+      <h1>Offline Image Converter</h1>
+      <ul id="features">
+        <li>Convert between different image formats directly in the browser</li>
+        <li>No cloud, no uploads, no installs, no downloads</li>
+        <li>Everything stays on your device, private and secure</li>
+      </ul>
+      <hr style="width: 35em; max-width: 90%;">
+    </header>
 
-    <hr style="width: 35em; max-width: 90%;">
+    <main>
+      <p>Paste using CTLR-V or choose a image from:</p>
 
-    <p>Paste using CTLR-V or choose a image from:</p>
+      <div id="inputSection">
+        <input type="file" id="fileInput" aria-label="Image to convert" onchange="fileInputChanged(event)" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
 
-    <div id="inputSection">
-      <input type="file" id="fileInput" aria-label="Image to convert" onchange="fileInputChanged(event)" accept="image/bmp,image/x-bmp,image/vnd-ms.dds,image/x-direct-draw-surface,image/x-exr,image/ff,image/gif,image/vnd.radiance,image/x-icon,image/jpeg,image/png,image/x-portable-bitmap,image/x-portable-graymap,image/x-portable-pixmap,image/x-portable-anymap,image/qoi,image/x-tga,image/x-targa,image/tiff,image/tiff-fx,image/webp" />
-
-      <div id="filePasteSection" style="display: none;">
-        <p>Pasted file</p>
-        <button onclick="resetPaste()">Reset</button>
-      </div>
-    </div>
-
-    <div id="actionSection" style="display: none;">
-      <div id="outputSection">
-        <label for="outputType">Output format:</label>
-        <select id="outputType" onchange="selectChanged(event)">
-          
-          <optgroup label="Recommended:">
-            <option value="image/jpeg">JPEG</option>
-            <option value="image/png">PNG</option>
-          </optgroup>
-          
-          <optgroup label="More:">
-            <option value="image/avif">AVIF</option>
-            <option value="image/bmp">BMP</option>
-            <option value="image/x-exr">OpenEXR</option>
-            <option value="image/ff">Farbfeld</option>
-            <option value="image/gif">GIF</option>
-            <option value="image/vnd.radiance">HDR</option>
-            <option value="image/x-icon">ICO</option>
-            <option value="image/x-portable-bitmap">PNM</option>
-            <option value="image/qoi">QOI</option>
-            <option value="image/x-tga">TGA</option>
-            <option value="image/tiff">TIFF</option>
-            <option value="image/webp">WebP</option>
-          </optgroup>
-        </select>
+        <div id="filePasteSection" style="display: none;">
+          <p>Pasted file</p>
+          <button onclick="resetPaste()">Reset</button>
+        </div>
       </div>
 
-      <details id="advancedInput">
-        <summary>
-          Advanced options (click to expand)
-        </summary>
-        <div id="advancedInput-image/jpeg">
-          <label for="quality">Quality (0 low, 100 high):</label>
-          <input type="number" id="quality" name="quality" min="0" max="100" value="100" />
+      <div id="actionSection" style="display: none;">
+        <div id="outputSection">
+          <label for="outputType">Output format:</label>
+          <select id="outputType" onchange="selectChanged(event)">
+            
+            <optgroup label="Recommended:">
+              <option value="image/jpeg">JPEG</option>
+              <option value="image/png">PNG</option>
+            </optgroup>
+            
+            <optgroup label="More:">
+              <option value="image/avif">AVIF</option>
+              <option value="image/bmp">BMP</option>
+              <option value="image/x-exr">OpenEXR</option>
+              <option value="image/ff">Farbfeld</option>
+              <option value="image/gif">GIF</option>
+              <option value="image/vnd.radiance">HDR</option>
+              <option value="image/x-icon">ICO</option>
+              <option value="image/x-portable-bitmap">PNM</option>
+              <option value="image/qoi">QOI</option>
+              <option value="image/x-tga">TGA</option>
+              <option value="image/tiff">TIFF</option>
+              <option value="image/webp">WebP</option>
+            </optgroup>
+          </select>
         </div>
 
-        <div id="advancedInput-image/png" style="display: none;">
-          <div>
-            <label for="compression">Compression method:</label>
-            <select id="compression" name="compression">
-              <option value="fast">Fast, minimal compression</option>
-              <option value="best">Best compression level</option>
-              <option value="default">Default compression level</option>
-            </select>
+        <details id="advancedInput">
+          <summary>
+            Advanced options (click to expand)
+          </summary>
+          <div id="advancedInput-image/jpeg">
+            <label for="quality">Quality (0 low, 100 high):</label>
+            <input type="number" id="quality" name="quality" min="0" max="100" value="100" />
           </div>
 
-          <div>
-            <label for="filter">Filter type:</label>
-            <select id="filter" name="filter">
-              <option value="adaptive">Automatic</option>
-              <option value="no_filter">No filter</option>
-              <option value="sub">Sub</option>
-              <option value="up">Up</option>
-              <option value="avg">Avg</option>
-              <option value="paeth">Paeth</option>
-            </select>
+          <div id="advancedInput-image/png" style="display: none;">
+            <div>
+              <label for="compression">Compression method:</label>
+              <select id="compression" name="compression">
+                <option value="fast">Fast, minimal compression</option>
+                <option value="best">Best compression level</option>
+                <option value="default">Default compression level</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="filter">Filter type:</label>
+              <select id="filter" name="filter">
+                <option value="adaptive">Automatic</option>
+                <option value="no_filter">No filter</option>
+                <option value="sub">Sub</option>
+                <option value="up">Up</option>
+                <option value="avg">Avg</option>
+                <option value="paeth">Paeth</option>
+              </select>
+            </div>
+            <a href="https://www.libpng.org/pub/png/spec/1.2/PNG-Filters.html" target="_blank" rel="noopener noreferrer">Read more about PNG filters</a>
           </div>
-          <a href="https://www.libpng.org/pub/png/spec/1.2/PNG-Filters.html" target="_blank" rel="noopener noreferrer">Read more about PNG filters</a>
+        </details>
+
+        <button id="convertBtn" onclick="convert()">Convert</button>
+        
+        <div id="loader" style="display: none;">
+          <span class="loader"></span>
+          <p id="progress">Starting...</p>
         </div>
-      </details>
-
-      <button id="convertBtn" onclick="convert()">Convert</button>
-      
-      <div id="loader" style="display: none;">
-        <span class="loader"></span>
-        <p id="progress">Starting...</p>
       </div>
-    </div>
 
-    <p id="error-message" style="display: none;">
-      Error here
-    </p>
+      <p id="error-message" style="display: none;">
+        Error here
+      </p>
+    </main>
+
+    <footer>
+      <a href="https://github.com/HHMagnus/ImageConvert" target="_blank">Source and Issues on Github</a>
+    </footer>
 
     <script>
       const errorMessage = document.getElementById("error-message");
